@@ -1,0 +1,7 @@
+python脚本文件编译运行方式：python 脚本名字
+
+我不确定example_solution.txt中是正确结果，所以我的程序跑出的预测结果的正确率无法求出，我这里用了两种方法来进行预测。
+
+因为这道题目的训练集不是很大，所以我考虑使用KNN算法，KNN算法的思想就是根据相邻的点的类别来推断自己的类别，相邻的k个点中哪一种类别的点最多就认为自己属于哪一种类别。附件中对应的脚本文件是ForestByKNN.py,用到了numpy、pandas库，预测结果保存在solutionByKNN.txt中,内容格式和example_solution.txt是一致的。
+
+决策树模型对于这道题的效果也不错，决策树中关键点是信息熵的计算，即以哪种特征进行往下分，对应的脚本文件是ForestByDecisionTree.py，用到了sklearn、numpy和pandas库，预测结果保存在solutionByDecisionTree.txt中，内容格式和example_solution.txt是一致的。

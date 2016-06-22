@@ -1,0 +1,86 @@
+#!/usr/bin/env python
+# coding=utf-8
+import pandas as pd
+import numpy as np
+df = pd.read_csv('data1.txt', sep=' ', header=None, dtype=str, na_filter=False)
+group=[]
+lables=[]
+i=0
+while i<len(df):
+    strr=df.loc[i]
+    j=2
+    while j<25:
+        str1=strr[j]
+        if j>10:
+           strr[j]=str1[3:]
+        else: strr[j]=str1[2:]
+        j+=1
+    df.loc[i]=strr
+    group.append(strr[2:])
+    lables.append(strr[1])
+    i+=1
+#print group[1]
+#print lables
+
+def classify0(inX, dataSet, labels, k):
+    dataSetSize = dataSet.shape[0]
+    diffMat = tile(inX, (dataSetSize,1)) - dataSet
+    sqDiffMat = diffMat**2
+    sqDistances = sqDiffMat.sum(axis=1)
+    distances = sqDistances**0.5
+    sortedDistIndicies = distances.argsort()     
+    classCount={}          
+    for i in range(k):
+        voteIlabel = labels[sortedDistIndicies[i]]
+        classCount[voteIlabel] = classCount.get(voteIlabel,0) + 1
+    sortedClassCount = sorted(classCount.iteritems(), key=operator.itemgetter(1), reverse=True)
+    return sortedClassCount[0][0]
+
+tf = pd.read_csv('data2.txt', sep=' ', header=None, dtype=str, na_filter=False)
+group2=[]
+
+i=0
+while i<len(tf):
+    strr=tf.loc[i]
+    j=2
+    while j<25:
+        str1=strr[j]
+        if j>10:
+           strr[j]=str1[3:]
+        else: strr[j]=str1[2:]
+        j+=1
+    tf.loc[i]=strr
+    group2.append(strr[2:])
+    i+=1
+print "group2:"+group2
+#x=df.values
+#y=df[1].values
+#x=np.delete(x,1,axis=1)
+#x=np.delete(x,0,axis=1)
+##print df.values 
+#x_train,x_test,y_train,y_test=cross_validation.train_test_split(x,y,test_size=0.3,random_state=0)
+#dt=tree.DecisionTreeClassifier(max_depth=5)
+#dt.fit(x_train,y_train)
+##print dt.score(x_test,y_test)
+#tf = pd.read_csv('data2.txt', sep=' ', header=None, dtype=str, na_filter=False)
+#i=0
+#while i<len(tf):
+#    str=tf.loc[i]
+#    j=2
+#    while j<25:
+#        str1=str[j]
+#        if j>10:
+#           str[j]=str1[3:]
+#        else: str[j]=str1[2:]
+#        j+=1
+#    tf.loc[i]=str
+#    i+=1
+#name=tf[0].values
+#tf=np.delete(tf,0,axis=1)
+#tf=np.delete(tf,1,axis=1)
+#print tf
+#predicts=dt.predict(tf)
+#prediction_file=open('solution.txt','wb')
+#print predicts
+#print "done"
+
